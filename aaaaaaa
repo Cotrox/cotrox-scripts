@@ -1,26 +1,27 @@
 /* Forum Contents Slide 1.0 */
-.cnt-slider {background: #FFF; height: 80px; margin-bottom: 25px; overflow: hidden; transition: .1s ease}
+.cnt-slider {background: #fff; height: 80px; margin-bottom: 25px; overflow: hidden; transition: .1s ease}
 .bodyalt .cnt-slider {background: #272A30}
-.origin-box {width: 75px; background: #F8F8F8; color: #383D46; font-size: 12pt; font-weight: bold; float: left; padding: 30px; cursor: help}
-.bodyalt .origin-box {background: #1A1D21; color: #FFF}
-.o-box-tutorial {background: #409CE6 !important; color: #FFF !important}
-.o-box-theory {background: #C56ED3 !important; color: #FFF !important}
-.o-box-coding {background: #F44336 !important; color: #FFF !important}
-.o-box-languages {background: #EA9C3B !important; color: #FFF !important}
-.o-box-resources {background: #7BBF76 !important; color: #FFF !important}
-.o-box-scripts {background: #607D8B !important; color: #FFF !important}
+.origin-box {width: 75px; background: #f8f8f8; color: #383d46; font-size: 12pt; font-weight: bold; float: left; padding: 30px; cursor: help}
+.bodyalt .origin-box {background: #1a1d21; color: #fff}
+.o-box-tutorial {background: #409ce6 !important; color: #fff !important}
+.o-box-theory {background: #c56ed3 !important; color: #fff !important}
+.o-box-coding {background: #f44336 !important; color: #fff !important}
+.o-box-languages {background: #ea9c3b !important; color: #fff !important}
+.o-box-resources {background: #7bbf76 !important; color: #fff !important}
+.o-box-scripts {background: #607D8B !important; color: #fff !important}
 .cnt-slide, .cnt-wrapper {height: 80px; width: 85.5%; transition: .3s ease-out; text-align-last: left}
 .cnt-buttons {position: relative; bottom: 775px; right: 50px; font-size: 20pt; float: right}
 .cnt-slider-button-prev i {transform: rotate(180deg)}
 .cnt-slider-button-next {position: relative; bottom: 24px; left: 25px}
 .cnt-buttons > *:hover {color: #272A30; cursor: pointer; transition: .3s ease-out}
-.bodyalt .cnt-buttons > *:hover {color: #585C65 !important}
+.bodyalt .cnt-buttons > *:hover {color: #585c65 !important}
 .cnt-slide > * {display: inline-flex}
 .cnt-slider .title:before {content: 'ha scritto su'; margin-right: 5px}
 .cnt-slider .time:before {content: 'alle'; margin-right: 5px}
 .cnt-slider .date:before {content: 'del'; margin-right: 5px}
-.cnt-slider .avatar {width: 80px; transition: .3s ease-out}
+.cnt-slider .avatar {width: 80px; height: 80px; transition: .3s ease-out}
 .cnt-slider .avatar:hover {opacity: .6}
 .cnt-slider .nick {margin-left: 10px}
 .cnt-slider a {font-size: 11pt}
 .cnt-slider .title a {max-width: 325px; display: inline; overflow: hidden !important; text-overflow: ellipsis; white-space: nowrap}
+
