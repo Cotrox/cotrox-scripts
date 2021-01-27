@@ -1,62 +1,64 @@
-// EasyQuote 2.1
+// EasyQuote 2.0
 (function() {
-   if (document.body.id === 'topic') {
-       var posts = Array.from(document.querySelectorAll(".post .mini_buttons.rt.Sub"));
-       for (var i = 0; i < posts.length; i++) {
-           var elem = posts[i].querySelector(".ez-quote");
-           var check = posts[i].contains(elem);
-           if (!check) {
-               var quote = document.createElement("a");
-               quote.className = "ez-quote";
-               quote.textContent = "Citazione Rapida";
-               quote.addEventListener('click', quotePost.bind(posts[i]));
-               posts[i].appendChild(quote);
-           }
-       }
-   }
-   function quotePost(event) {
-       var element = event.path[6];
-       var reference = element.id.replace('ee', '');
-       var user = element.querySelector(".nick")
-       var date = element.querySelector('.when');
-       var link = element.querySelector('.right .lt a:nth-child(2)');
-       if (!(document.querySelector('.current'))) {
-           var page = 0;
-       } else {
-           var page = (parseInt(document.querySelector('.current').innerHTML) - 1) * 15;
-       }
-       var id = document.body.classList.item(1).replace('t', '');
-       var req = '/api.php?t=' + id + '&st=' + page + '&first_post=1&bbcode=1&cookie=1';
-       getData(req, function(res) {
-           for (var k = 0; k < res.messages.length; k++) {
-               if (res.messages[k].id == reference) {
-                   var txt = entitiesDecoderHTML(res.messages[k].content).replace(/\\n/g, '<br>');
-               }
-           }
-           var quote_txt = '[QUOTE=' + user.textContent + ',' + date.textContent.replace('Inviato il ', '') + ' ' + link.href + ']\n' + txt + '\n[/QUOTE]';
-           var txt_area = document.getElementById("Post").value += quote_txt.replace(/<br>/gmi, '\n');
-       });
-       var fast_share = document.getElementById("newReply");
-       fast_share.scrollIntoView({
-           block: 'end',
-           behavior: 'smooth'
-       });
-   }
-   function getData(url, callback) {
-       var xhr = new XMLHttpRequest();
-       xhr.addEventListener('readystatechange', function() {
-           if (xhr.readyState === XMLHttpRequest.DONE) {
-               if (xhr.status >= 200 && xhr.status <= 299) {
-                   callback(JSON.parse(xhr.responseText));
-               }
-           }
-       });
-       xhr.open('GET', url, true);
-       xhr.send();
-   }
-   function entitiesDecoderHTML(text) {
-       var textArea = document.createElement('textarea');
-       textArea.innerHTML = text;
-       return textArea.value;
-   }
+    if (document.body.id === 'topic') { 
+        var posts = document.querySelectorAll('.post');
+        var rt = document.querySelectorAll('.mini_buttons.rt');
+        
+        for (var i = 0; i < rt.length; i++) {
+            var quote = document.createElement('a');
+            quote.className = 'ez-quote';
+            quote.textContent = 'Citazione Rapida';
+            quote.addEventListener('click', quotePost.bind((posts[i])));
+            rt[i].appendChild(quote); 
+        }
+    }
+    
+    function quotePost(event) {
+    	var reference = this.id.replace('ee', '');
+        var user = this.querySelector('.nick');
+        var date = this.querySelector('.when');
+        var link = this.querySelector('.right .lt a:nth-child(2)');
+
+        if(!(document.querySelector('.current'))) {
+        	var page = 0;
+        }
+        else {
+        	var page = (parseInt(document.querySelector('.current').innerHTML)-1)*15;
+        }
+        var id = document.body.classList.item(1).replace('t','');
+        var req = 'https://' + document.domain + '/api.php?t='+id+'&st='+page+'&first_post=1&bbcode=1&cookie=1';
+        getData(req, function(res) { 
+        	for(var k = 0; k < res.messages.length; k++) {
+        		if(res.messages[k].id == reference) {
+        			var txt = entitiesDecoderHTML(res.messages[k].content).replace(/\\n/g, '<br>');
+        		}
+        	}
+        	
+        	var quote_txt = '[QUOTE='+ user.textContent +','+ date.textContent.replace('Inviato il ', '') + ' '+ link.href + ']\n' + txt + '\n[/QUOTE]';
+        	var txt_area = document.getElementById("Post").value += quote_txt.replace(/<br>/gmi, '\n');
+        });
+            
+        var fast_share = document.getElementById("newReply");
+        fast_share.scrollIntoView({ block: 'end',  behavior: 'smooth' });
+    }
+    
+    function getData(url, callback) {
+        var xhr = new XMLHttpRequest();
+    
+        xhr.addEventListener('readystatechange', function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status >= 200 && xhr.status <= 299) {
+                    callback(JSON.parse(xhr.responseText));
+                }
+            }
+        });
+        xhr.open('GET', url, true);
+        xhr.send();
+    }
+
+    function entitiesDecoderHTML(text) {
+		var textArea = document.createElement('textarea');
+		textArea.innerHTML = text;
+	    return textArea.value;
+	}
 })();
